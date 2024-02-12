@@ -1,6 +1,4 @@
 #include "JSONParser.h"
-#include <algorithm>
-
 
 
 JSONParser::JSONParser(const char* jsonData) 
@@ -8,7 +6,7 @@ JSONParser::JSONParser(const char* jsonData)
 	this->success = false;
 	allMatchStats = std::vector<MatchUpStats>();
 	
-	if (parseJSON(jsonData))
+	if (checkJSONValid(jsonData))
 	{
 		storeJSON();
 	}
@@ -29,24 +27,30 @@ bool JSONParser::determineVal(std::string str)
 }
 
 
-bool JSONParser::parseJSON(const char* jsonData)
+bool JSONParser::checkJSONValid(const char* jsonData)
 {
 	document.Parse(jsonData);
 
 	if (!document.IsObject() || document.HasParseError())
 	{
-		std::cerr << "Failed to parse JSON: " << (document.GetParseError()) << std::endl;
-		return false;
+		throw "\nERROR: Failed to parse JSON: " + (document.GetParseError());
 	}
-	return true;
-}
+	else 
+	{
+		return true;
+	}
 
+}
 
 //this function stores the items in the struct, for file info
 void JSONParser::storeJSON()
 {
 	const Value& matchUpStatsArr = document["matchUpStats"];
-	this->success = document["success"].GetBool();
+
+	if (document.HasMember("success"))
+	{
+		this->success = document["success"].GetBool();
+	}
 	
 	for (SizeType i = 0; i < matchUpStatsArr.Size(); i++)
 	{
@@ -93,7 +97,6 @@ std::string JSONParser::getAllStats()
 	{
 		allStats += getIndividualStat(game);
 	}
-
 	return allStats;
 }
 
@@ -102,6 +105,7 @@ std::string JSONParser::getIndividualStat(MatchUpStats& game)
 {
 	std::string jsonStr = "";
 	jsonStr += "GAME STATS ON " + game.date + ":\n";
+	jsonStr += "--------------------------\n";
 	jsonStr += "Neutral: " + determineStr(game.neutral);
 
 	jsonStr += "\nVisiting Team: " + game.visTeamName + "\n";
@@ -117,48 +121,62 @@ std::string JSONParser::getIndividualStat(MatchUpStats& game)
 	}
 
 	jsonStr += "Final: " + determineStr(game.isFinal);
-	jsonStr += "\n--------------------------\n";
+	jsonStr += "\n--------------------------\n\n";
 	
 	return jsonStr;
-
 }
 
 
-std::string JSONParser::queryJSON(std::string queryDate)
+std::string JSONParser::queryJSON(const std::string& queryDate)
 {
 	auto matchedGame = std::find_if(allMatchStats.begin(), allMatchStats.end(), [queryDate](const MatchUpStats& game) 
 						{ return game.date == queryDate; });
 	
 	if (matchedGame == allMatchStats.end()) 
 	{
-		return "No matches held on " + queryDate + " were found. Please make sure you entered the date in YYYY-MM-DD format.";
+		throw "No matches were found with this date.";
 	}
 
 	MatchUpStats game = *matchedGame;
 	return "\n" + getIndividualStat(game);
+}
 
+std::string JSONParser::getLatestJSON()
+{
+	auto& latest = allMatchStats.back();
+
+	MatchUpStats latestAddition = latest;
+	return "\n" + getIndividualStat(latestAddition);
+}
+
+
+bool JSONParser::checkNewDateFormat(std::string& newGameDate)
+{
+	std::regex pattern("\\b\\d{4}-\\d{2}-\\d{2}\\b");
+	return std::regex_match(newGameDate, pattern);
 }
 
 
 //adds a new json object
-void JSONParser::addNewJSON(std::string gameDate, std::string visTeamName, std::string homeTeamName, std::string isNeutral, std::string isFinal)
+void JSONParser::addNewJSON(std::string& gameDate, std::string& visTeamName, std::string& homeTeamName, std::string& isNeutral, std::string& isFinal)
 {
+	if (!checkNewDateFormat(gameDate))
+	{
+		throw "\nERROR: Match date is not in YYYY-MM-DD format.";
+	}
+
 	std::string statCode, gameCode;
 	std::unordered_map<std::string, std::string> newVisStats = allMatchStats[0].visStats;
 	std::unordered_map<std::string, std::string> newHomeStats = allMatchStats[0].homeStats;
 
 	statCode = gameDate;
-
-	while (gameDate.find("-") != std::string::npos)
-	{
-		statCode.replace(statCode.find("-"), 1, "0000");
-	}
+	statCode = std::regex_replace(gameDate, std::regex("-"), "0000");
 
 	gameCode = "00" + statCode;
 	newVisStats.emplace("statIdCode", statCode).first->second = statCode;
 	newVisStats.emplace("gameCode", gameCode).first->second = gameCode;
 
-	MatchUpStats newMatch = { determineVal(isNeutral), visTeamName, newVisStats, homeTeamName, newHomeStats, determineVal(isFinal), gameDate};
+	MatchUpStats newMatch = { determineVal(isNeutral), visTeamName, newVisStats, homeTeamName, newHomeStats, determineVal(isFinal), gameDate };
 
 	allMatchStats.push_back(newMatch);
 

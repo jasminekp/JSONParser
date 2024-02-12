@@ -7,25 +7,30 @@ class FileHandler
 {
 
 public:
-	FileHandler(const std::string& dirName);
-	bool directoryExist();
+
+	//constructor
+	FileHandler();
+
+	//modifying functions
+	bool directoryExist(const std::string& dirName);
 	void write(const std::string& outputData);
 	void clear();
 	
+	//setters
 	void setDirName(const std::string& dirName);
-	void setOutputData(const std::string& data);
-
-	std::string getData();
+	void setFileName(std::string fileName);
+	
+	//getters
 	std::filesystem::path getFullPath();
 	std::string getDirectory();
+	std::string getFileName();
 
 
 private:
-	
 	std::fstream file;
-	//std::string outputData;
 	std::string directory;
 	std::filesystem::path fullPath;
 	std::string fileName;
+
 };
 

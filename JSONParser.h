@@ -5,6 +5,8 @@
 #include <unordered_map>
 #include <vector>
 #include <map>
+#include <algorithm>
+#include <regex>
 
 #include "rapidjson/document.h"
 using namespace rapidjson;
@@ -35,14 +37,16 @@ public:
 
 	//initialize constructor
 	JSONParser(const char* jsonData);
-	bool parseJSON(const char* jsonData);
+
 
 	//functions to modify/retrieve from the JSON data
+	bool checkJSONValid(const char* jsonData);
 	void storeJSON();
-	std::string queryJSON(std::string queryDate);
-	void addNewJSON(std::string gameDate, std::string visTeamName, std::string homeTeamName, std::string isNeutral, std::string isFinal);
+	std::string queryJSON(const std::string& queryDate);
+	void addNewJSON(std::string& gameDate, std::string& visTeamName, std::string& homeTeamName, std::string& isNeutral, std::string& isFinal);
+	bool checkNewDateFormat(std::string& newGameDate);
 
-
+	std::string getLatestJSON();
 	std::string getIndividualStat(MatchUpStats& game);
 	std::string getAllStats();
 

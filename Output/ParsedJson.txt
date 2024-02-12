@@ -1,4 +1,5 @@
 GAME STATS ON 2020-09-13:
+--------------------------
 Neutral: false
 Visiting Team: Cardinals
 rushYds: 180
@@ -45,7 +46,9 @@ timePoss: 1886
 score: 24
 Final: false
 --------------------------
+
 GAME STATS ON 2020-09-20:
+--------------------------
 Neutral: false
 Visiting Team: 49ers
 rushYds: 182
@@ -92,7 +95,9 @@ timePoss: 1933
 score: 31
 Final: false
 --------------------------
+
 GAME STATS ON 2020-09-27:
+--------------------------
 Neutral: false
 Visiting Team: 49ers
 rushYds: 93
@@ -139,7 +144,9 @@ timePoss: 2384
 score: 36
 Final: false
 --------------------------
+
 GAME STATS ON 2020-10-05:
+--------------------------
 Neutral: false
 Visiting Team: Eagles
 rushYds: 93
@@ -186,7 +193,9 @@ timePoss: 1769
 score: 25
 Final: false
 --------------------------
+
 GAME STATS ON 2020-10-11:
+--------------------------
 Neutral: false
 Visiting Team: Dolphins
 rushYds: 94
@@ -233,7 +242,9 @@ timePoss: 2213
 score: 43
 Final: false
 --------------------------
+
 GAME STATS ON 2020-10-19:
+--------------------------
 Neutral: false
 Visiting Team: Rams
 rushYds: 113
@@ -280,7 +291,9 @@ timePoss: 1325
 score: 16
 Final: false
 --------------------------
+
 GAME STATS ON 2020-10-25:
+--------------------------
 Neutral: false
 Visiting Team: 49ers
 rushYds: 197
@@ -327,7 +340,9 @@ timePoss: 2303
 score: 33
 Final: false
 --------------------------
+
 GAME STATS ON 2020-11-01:
+--------------------------
 Neutral: false
 Visiting Team: 49ers
 rushYds: 52
@@ -374,7 +389,9 @@ timePoss: 1742
 score: 27
 Final: false
 --------------------------
+
 GAME STATS ON 2020-11-06:
+--------------------------
 Neutral: false
 Visiting Team: Packers
 rushYds: 111
@@ -421,7 +438,9 @@ timePoss: 2190
 score: 34
 Final: false
 --------------------------
+
 GAME STATS ON 2020-11-15:
+--------------------------
 Neutral: false
 Visiting Team: 49ers
 rushYds: 49
@@ -468,7 +487,9 @@ timePoss: 1974
 score: 13
 Final: false
 --------------------------
+
 GAME STATS ON 2020-11-29:
+--------------------------
 Neutral: false
 Visiting Team: 49ers
 rushYds: 115
@@ -515,7 +536,9 @@ timePoss: 2043
 score: 23
 Final: false
 --------------------------
+
 GAME STATS ON 2020-12-08:
+--------------------------
 Neutral: false
 Visiting Team: Bills
 rushYds: 81
@@ -562,7 +585,9 @@ timePoss: 2098
 score: 34
 Final: false
 --------------------------
+
 GAME STATS ON 2020-12-13:
+--------------------------
 Neutral: false
 Visiting Team: Washington
 rushYds: 98
@@ -609,7 +634,9 @@ timePoss: 1669
 score: 23
 Final: false
 --------------------------
+
 GAME STATS ON 2020-12-20:
+--------------------------
 Neutral: false
 Visiting Team: 49ers
 rushYds: 150
@@ -656,7 +683,9 @@ timePoss: 2096
 score: 33
 Final: false
 --------------------------
+
 GAME STATS ON 2020-12-26:
+--------------------------
 Neutral: false
 Visiting Team: 49ers
 rushYds: 227
@@ -703,7 +732,9 @@ timePoss: 1664
 score: 20
 Final: false
 --------------------------
+
 GAME STATS ON 2021-01-03:
+--------------------------
 Neutral: false
 Visiting Team: Seahawks
 rushYds: 121
@@ -750,4 +781,54 @@ timePoss: 1660
 score: 26
 Final: false
 --------------------------
+
+GAME STATS ON 2021-04-20:
+--------------------------
+Neutral: true
+Visiting Team: test1
+rushYds: 180
+statIdCode: 2021000004000020
+fumblesLost: 0
+rushAtt: 36
+gameCode: 002021000004000020
+firstDowns: 29
+teamCode: 1
+passAtt: 40
+gameDate: Sep 13, 2020
+passYds: 224
+passComp: 26
+penalties: 9
+penaltYds: 102
+interceptionsThrown: 1
+thridDownAtt: 14
+thirdDownConver: 7
+fourthDownAtt: 0
+fourthDownConver: 0
+timePoss: 1886
+score: 24
+
+Home Team: test2
+rushYds: 180
+statIdCode: 2021000004000020
+fumblesLost: 0
+rushAtt: 36
+gameCode: 002021000004000020
+firstDowns: 29
+teamCode: 1
+passAtt: 40
+gameDate: Sep 13, 2020
+passYds: 224
+passComp: 26
+penalties: 9
+penaltYds: 102
+interceptionsThrown: 1
+thridDownAtt: 14
+thirdDownConver: 7
+fourthDownAtt: 0
+fourthDownConver: 0
+timePoss: 1886
+score: 24
+Final: true
+--------------------------
+
 
