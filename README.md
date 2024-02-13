@@ -12,9 +12,9 @@ TO RUN THE PROGRAM:
 	- Option 1: Compile the *.cpp and *.h files using the command line and your choice of compiler.
 
 	- Option 2: In Visual Studio 2019 or Higher, load the *.sln file from the repository. Make sure to point the linker to the cURL dynamic link libraries that are stored in the
-			\JSONParser\x64\Debug directory. The code can then be viewed and debugged using Visual Studio.
+			\JSONParser\x64\Debug\ directory. The code can then be viewed and debugged using Visual Studio.
 
-	- Option 3: Navigate to the \JSONParser\x64\Debug\ directory from the command line and run the JSONParser.exe executable.
+	- Option 3: Navigate to the \JSONParser\exe directory from the command line and run the JSONParser.exe executable.
 
 
 -------------------------------------------------------------------------------
