@@ -2,8 +2,8 @@
  * Jasmine Parmar, Kevin Osadiaye
  * CSE 681 - Software Modeling
  * Syracuse University - Professor Greg Wagner
- * Project #1
- * 2/4/2024
+ * Project #2
+ * 3/3/2024
  *
  * This FileHandler.cpp file contains the implementation for the FileHandler class. The FileHandler manages all the file writing,
  * creating, opening, and closing of an output file that is specified within a set directory.

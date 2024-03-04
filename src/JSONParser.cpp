@@ -2,34 +2,37 @@
  * Jasmine Parmar, Kevin Osadiaye
  * CSE 681 - Software Modeling
  * Syracuse University - Professor Greg Wagner
- * Project #1
- * 2/4/2024
+ * Project #2
+ * 3/3/2024
  *
  * This JSONParser.cpp file contains all the implementation for the JSONParser class. The JSONParser class handles the parsing, storing,
  * retrieving, and generating of the JSON Data. A rapidjson document object is used to initially parse the JSON string, and all data is then
  * stored individually to a vector of MatchUpStats structs. Each struct contains the lower level objects from the JSON data.
- * 
+ *
  **/
 
 #include "JSONParser.h"
 
+JSONParser::JSONParser()
+{
+
+}
+
 /*
- * The JSONParser constructor takes the unparsed string of JSON data and initializes the success variable, and the vector of MatchUpStats structs
- * the constructor then checks if the JSON data can be parsed and stores the data into the struct 
+ * The parse function verifies whether the passed JSON data is valid - if valid, the storeJSON function is called
  */
-JSONParser::JSONParser(const char* jsonData) 
+void JSONParser::parse(const char* jsonData)
 {
 	this->success = false;
-	allMatchStats = std::vector<MatchUpStats>();
-	
 	if (checkJSONValid(jsonData))
 	{
 		storeJSON();
 	}
+
 }
 
 /*
- * This function determines the string equivalent of the boolean variable passed in (0 = false, 1 = true) 
+ * This function determines the string equivalent of the boolean variable passed in (0 = false, 1 = true)
  */
 std::string JSONParser::determineStr(bool val)
 {
@@ -43,8 +46,8 @@ bool JSONParser::determineVal(std::string str)
 {
 	std::transform(str.begin(), str.end(), str.begin(), [](unsigned char c) {
 		return std::toupper(c);
-	});
-		
+		});
+
 	return (str == "YES") ? true : false;
 }
 
@@ -60,12 +63,21 @@ bool JSONParser::checkJSONValid(const char* jsonData)
 	{
 		throw "\nERROR: Failed to parse JSON: " + (document.GetParseError());
 	}
-	else 
+	else
 	{
 		return true;
 	}
 
 }
+
+/*
+ * The getMatchUpStats function returns the allMatchStats vector of structs
+ */
+std::vector<JSONParser::MatchUpStats> JSONParser::getMatchUpStats()
+{
+	return allMatchStats;
+}
+
 
 /*
  * The storeJSON function iterates through the higher level JSON data array and stores each parameter into the associating
@@ -80,12 +92,12 @@ void JSONParser::storeJSON()
 	{
 		this->success = document["success"].GetBool();
 	}
-	
+
 	for (SizeType i = 0; i < matchUpStatsArr.Size(); i++)
 	{
 		MatchUpStats MatchStats;
 
-		if (matchUpStatsArr[i].IsObject()) 
+		if (matchUpStatsArr[i].IsObject())
 		{
 			MatchStats.neutral = matchUpStatsArr[i]["neutral"].GetBool();
 			MatchStats.visTeamName = matchUpStatsArr[i]["visTeamName"].GetString();
@@ -106,7 +118,7 @@ void JSONParser::storeJSON()
  *		1) the name of the team (visStats or homeTeamStats)
  *		2) the current index of the struct within the vector of structs
  *		3) a reference to the current MatchUpStats struct being parsed
- * 
+ *
  * The parseTeamStats function iterates each item belonging to the visStats and homeTeamStats and stores the item name as well as
  * value to the unordered maps within the MatchUpStats struct
  */
@@ -121,7 +133,7 @@ void JSONParser::parseTeamStats(int i, const char* arrName, MatchUpStats& MatchS
 		{
 			MatchStats.visStats.insert(std::make_pair<std::string, std::string>(it->name.GetString(), convertedVal.c_str()));
 		}
-		else 
+		else
 		{
 			MatchStats.homeStats.insert(std::make_pair<std::string, std::string>(it->name.GetString(), convertedVal.c_str()));
 		}
@@ -144,7 +156,7 @@ std::string JSONParser::getAllStats()
 }
 
 /*
- * The getIndividualStat function iterates the data belonging to the MatchUpStats struct passed in as an argument 
+ * The getIndividualStat function iterates the data belonging to the MatchUpStats struct passed in as an argument
  * The formatted results are then returned by the function as a string
  */
 std::string JSONParser::getIndividualStat(MatchUpStats& game)
@@ -170,7 +182,7 @@ std::string JSONParser::getIndividualStat(MatchUpStats& game)
 
 	jsonStr += "Final: " + determineStr(game.isFinal);
 	jsonStr += "\n--------------------------\n\n";
-	
+
 	return jsonStr;
 }
 
@@ -180,11 +192,11 @@ std::string JSONParser::getIndividualStat(MatchUpStats& game)
  */
 std::string JSONParser::queryJSON(const std::string& queryDate)
 {
-	auto matchedGame = std::find_if(allMatchStats.begin(), allMatchStats.end(), [queryDate](const MatchUpStats& game) 
-						{ return game.date == queryDate; });
-	
+	auto matchedGame = std::find_if(allMatchStats.begin(), allMatchStats.end(), [queryDate](const MatchUpStats& game)
+		{ return game.date == queryDate; });
+
 	//throw an error if the struct cannot be found with the associated query date
-	if (matchedGame == allMatchStats.end()) 
+	if (matchedGame == allMatchStats.end())
 	{
 		throw "No matches were found with this date.";
 	}
@@ -219,7 +231,7 @@ bool JSONParser::checkNewDateFormat(std::string& newGameDate)
 
 /*
  * The addNewJSON function takes higher level JSON input information such as the game date, visiting team name, home team name, etc.
- * The statcode and gamecode are generated by replacing the date with four zeros. 
+ * The statcode and gamecode are generated by replacing the date with four zeros.
  * For reusability purposes, the lower level data for the visiting team & home team are copied from the first struct in the allMatchStats struct
  *
  * Once all data has been generated for this new game, a newMatch struct is created and added to the vector of MatchUpStats structs

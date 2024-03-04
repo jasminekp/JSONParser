@@ -2,8 +2,8 @@
  * Jasmine Parmar, Kevin Osadiaye
  * CSE 681 - Software Modeling
  * Syracuse University - Professor Greg Wagner
- * Project #1
- * 2/4/2024
+ * Project #2
+ * 3/3/2024
  *
  * This JSONParser.h header file contains the private and public data members/functions for the JSONParser class.
  **/
@@ -48,7 +48,7 @@ private:
 public:
 
 	//initialize constructor
-	JSONParser(const char* jsonData);
+	JSONParser();
 
 
 	//functions to modify/retrieve from the JSON data
@@ -58,12 +58,14 @@ public:
 	void addNewJSON(std::string& gameDate, std::string& visTeamName, std::string& homeTeamName, std::string& isNeutral, std::string& isFinal);
 	bool checkNewDateFormat(std::string& newGameDate);
 	void parseTeamStats(int i, const char* arrName, MatchUpStats& MatchStats);
+	void parse(const char* jsonData);
 
 	//getters
 	std::string getLatestJSON();
 	std::string getIndividualStat(MatchUpStats& game);
 	std::string getAllStats();
-	
+	std::vector<MatchUpStats> getMatchUpStats();
+
 
 	//functions that convert the boolean to string equivalent and vice-versa
 	std::string determineStr(bool val);
