@@ -2,8 +2,8 @@
  * Jasmine Parmar, Kevin Osadiaye
  * CSE 681 - Software Modeling
  * Syracuse University - Professor Greg Wagner
- * Project #1
- * 2/4/2024
+ * Project #2
+ * 3/3/2024
  *
  * This FileHandler.h header file contains the private and public data members/functions for the FileHandler class.
  **/
